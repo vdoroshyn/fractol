@@ -14,5 +14,28 @@
 # define FRACTOL_H
 
 # include "libft/libft.h"
+# include "mlx.h"
 
+typedef struct		s_all
+{
+	void			*mlx;
+	void			*win;
+	void			*img;
+	char			*str;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	int				win_x;
+	int				win_y;
+	int				continuous_index;
+	int				red;
+	int				green;
+	int				blue;
+}					t_all;
+
+void				julia(t_all *container);
+void				mandelbrot();
+void				burning_ship();
+int					my_key_func1(int keycode, t_all *a);
+void				draw_fractal(int x, int y, t_all *a);
 #endif

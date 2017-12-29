@@ -18,6 +18,9 @@ MLX = -lmlx -framework OpenGL -framework AppKit
 HEADER = fractol.h
 
 OBJECTS = fractol.o \
+			julia.o \
+			mandelbrot.o \
+			burning_ship.o \
 
 .PHONY : clean all fclean re
 
@@ -41,3 +44,12 @@ re : fclean all
 
 fractol.o : fractol.c $(HEADER)
 	$(CC) $(CFLAGS) -c fractol.c fractol.h
+
+julia.o : julia.c $(HEADER)
+	$(CC) $(CFLAGS) -c julia.c fractol.h
+
+mandelbrot.o : mandelbrot.c $(HEADER)
+	$(CC) $(CFLAGS) -c mandelbrot.c fractol.h
+
+burning_ship.o : burning_ship.c $(HEADER)
+	$(CC) $(CFLAGS) -c burning_ship.c fractol.h
