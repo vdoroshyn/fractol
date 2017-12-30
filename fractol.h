@@ -27,15 +27,40 @@ typedef struct		s_all
 	int				endian;
 	int				win_x;
 	int				win_y;
+	int				which_fractal;
 	int				continuous_index;
 	int				red;
 	int				green;
 	int				blue;
+	/*
+	**fractal vars
+	*/
+	double			real;
+	double			imaginary;
+	double			new_real;
+	double			old_real;
+	double			new_imaginary;
+	double			old_imaginary;
+	double			zoom;
+	double			move_x_axis;
+	double			move_y_axis;
+	int				iterations;
 }					t_all;
 
+void				construct(t_all *container);
+void				destruct(t_all *container);
+
+void    			julia_init(t_all *container);
 void				julia(t_all *container);
-void				mandelbrot();
-void				burning_ship();
-int					my_key_func1(int keycode, t_all *a);
-void				draw_fractal(int x, int y, t_all *a);
+void				mandelbrot_init(t_all *container);
+void				mandelbrot(t_all *container);
+void				burning_ship_init(t_all *container);
+void				burning_ship(t_all *container);
+
+void				draw_fractal(int x, int y, t_all *container);
+void				redraw_one_fractal(t_all *container);
+
+int					my_key_func1(int keycode, t_all *container);
+void				move(t_all *container, int keycode);
+void				change_color(t_all *a, int keycode);
 #endif

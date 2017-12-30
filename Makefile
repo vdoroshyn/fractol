@@ -21,6 +21,8 @@ OBJECTS = fractol.o \
 			julia.o \
 			mandelbrot.o \
 			burning_ship.o \
+			move.o \
+			change_color.o \
 
 .PHONY : clean all fclean re
 
@@ -53,3 +55,9 @@ mandelbrot.o : mandelbrot.c $(HEADER)
 
 burning_ship.o : burning_ship.c $(HEADER)
 	$(CC) $(CFLAGS) -c burning_ship.c fractol.h
+
+move.o : move.c $(HEADER)
+	$(CC) $(CFLAGS) -c move.c fractol.h
+
+change_color.o : change_color.c $(HEADER)
+	$(CC) $(CFLAGS) -c change_color.c fractol.h

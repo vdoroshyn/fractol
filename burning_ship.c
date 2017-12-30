@@ -1,53 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vdoroshy <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/01 16:08:59 by vdoroshy          #+#    #+#             */
+/*   Updated: 2017/03/02 13:39:17 by vdoroshy         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-
-
-void burning_ship()
+void    burning_ship_init(t_all *a)
 {
-    t_all a;
+	a->zoom = 1;
+    a->move_x_axis = -0.5;
+    a->move_y_axis = -0.5;
+    a->iterations = 300;
+    a->red = 255;
+    a->green = 211;
+    a->blue = 181;
+}
 
-    a.win_x = 800;
-    a.win_y = 600;
-    a.mlx = mlx_init();
-    if (a.mlx == NULL)
-        exit(0);
-    a.win = mlx_new_window(a.mlx, a.win_x, a.win_y, "window");
-    if (a.win == NULL)
-        exit(0);
-    a.img = mlx_new_image(a.mlx, a.win_x, a.win_y);
-    a.str = mlx_get_data_addr(a.img, &a.bpp, &a.size_line, &a.endian);
-    //each iteration, it calculates: newz = oldz*oldz + p, where p is the current pixel, and oldz stars at the origin
-    double pr, pi;           //real and imaginary part of the pixel p
-    double newRe, newIm, oldRe, oldIm;   //real and imaginary parts of new and old z
-    double zoom = 1, moveX = -0.5, moveY = -0.5; //you can change these to zoom and change position
-    int maxIterations = 300;//after how much iterations the function should stop
+void burning_ship(t_all *a)
+{	
+    int y;
 
-    //loop through every pixel
-    for(int y = 0; y < a.win_y; y++)
-    for(int x = 0; x < a.win_x; x++)
+    y = 0;
+    while (y < a->win_y)
     {
-      //calculate the initial real and imaginary part of z, based on the pixel location and zoom and position values
-      pr = 1.5 * (x - a.win_x / 2) / (0.5 * zoom * a.win_x) + moveX;
-      pi = (y - a.win_y / 2) / (0.5 * zoom * a.win_y) + moveY;
-      newRe = newIm = oldRe = oldIm = 0; //these should start at 0,0
-      //"i" will represent the number of iterations
-      int i;
-      //start the iteration process
-      for(i = 0; i < maxIterations; i++)
-      {
-        //remember value of previous iteration
-        oldRe = newRe;
-        oldIm = newIm;
-        //the actual iteration, the real and imaginary part are calculated
-        newRe = oldRe * oldRe - oldIm * oldIm + pr;
-        newIm = 2 * fabs(oldRe * oldIm) + pi;
-        //if the point is outside the circle with radius 2: stop
-        if((newRe * newRe + newIm * newIm) > 4) break;
-      }
-      a.continuous_index = i + 1 - (log(2) / 1) / log(2);
-      draw_fractal(x, y, &a);
+        int x;
+
+        x = 0;
+        while (x < a->win_x)
+        {
+            a->real = 1.5 * (x - a->win_x / 2) / (0.5 * a->zoom * a->win_x) + a->move_x_axis;
+            a->imaginary = (y - a->win_y / 2) / (0.5 * a->zoom * a->win_y) + a->move_y_axis;
+            a->new_real = 0;
+            a->old_real = 0;
+            a->new_imaginary = 0;
+            a->old_imaginary = 0;
+            int i;
+
+            i = 0;
+            while (i < a->iterations)
+            {
+                a->old_real = a->new_real;
+                a->old_imaginary = a->new_imaginary;
+
+                a->new_real = a->old_real * a->old_real - a->old_imaginary * a->old_imaginary + a->real;
+                a->new_imaginary = 2 * fabs(a->old_real * a->old_imaginary) + a->imaginary;
+                if ((a->new_real * a->new_real + a->new_imaginary * a->new_imaginary) > 4)
+                {
+                    break;
+                }
+                ++i; 
+            }
+            a->continuous_index = i + 1 - (log(2) / 1) / log(2);
+            draw_fractal(x, y, a);
+            ++x;
+        }
+        ++y;
     }
-    mlx_put_image_to_window(a.mlx, a.win, a.img, 0, 0);
-    mlx_hook(a.win, 2, 5, my_key_func1, &a);
-    mlx_loop(a.mlx);
+    mlx_put_image_to_window(a->mlx, a->win, a->img, 0, 0);
 }
