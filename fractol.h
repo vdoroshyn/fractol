@@ -32,9 +32,7 @@ typedef struct		s_all
 	int				red;
 	int				green;
 	int				blue;
-	/*
-	**fractal vars
-	*/
+
 	double			real;
 	double			imaginary;
 	double			new_real;
@@ -50,7 +48,7 @@ typedef struct		s_all
 void				construct(t_all *container);
 void				destruct(t_all *container);
 
-void    			julia_init(t_all *container);
+void				julia_init(t_all *container);
 void				julia(t_all *container);
 void				mandelbrot_init(t_all *container);
 void				mandelbrot(t_all *container);
