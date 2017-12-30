@@ -28,11 +28,12 @@ typedef struct		s_all
 	int				win_x;
 	int				win_y;
 	int				which_fractal;
+	int				toggle;
+	
 	int				continuous_index;
 	int				red;
 	int				green;
 	int				blue;
-
 	double			real;
 	double			imaginary;
 	double			new_real;

@@ -132,16 +132,17 @@ void		redraw_one_fractal(t_all *a)
 
 int			move_with_mouse(int x, int y, t_all *a)
 {
-	// if (x >= a->win_x / 2 && x < a->win_x)
-	// {
-	// 	a->imaginary += ((x - a->win_x / 2) * 0.00002);
- //   		a->real += ((x - a->win_x / 2) * 0.00002);
-	// }
-	// if (x < a->win_x / 2 && x > 0)
-	// {
-	// 	a->imaginary -= ((x - a->win_x / 2) * 0.00002);
-	// 	a->real -= ((x - a->win_x / 2) * 0.00002);
-	// }
+	if (a->toggle == 1) {
+	if (x >= a->win_x / 2 && x < a->win_x)
+	{
+		a->imaginary += ((x - a->win_x / 2) * 0.00002);
+   		a->real += ((x - a->win_x / 2) * 0.00002);
+	}
+	if (x < a->win_x / 2 && x > 0)
+	{
+		a->imaginary -= ((x - a->win_x / 2) * 0.00002);
+		a->real -= ((x - a->win_x / 2) * 0.00002);
+	}
 	// x -= a->win_x / 2;
 	// y -= a->win_y / 2;
 
@@ -149,6 +150,7 @@ int			move_with_mouse(int x, int y, t_all *a)
 	// a->imaginary = (y / a->win_y) * 0.84;
 	printf("x is %d y is %d\n", x, y);
 	redraw_one_fractal(a);
+}
 	return (0);
 }
 
@@ -175,7 +177,9 @@ int				my_key_func1(int keycode, t_all *a)
 		change_color(a, keycode);
 	else if (keycode == 69 || keycode == 78)
 		zoom(a, keycode);
-	// else if (keycode == 49)
+	else if (keycode == 49 && a->which_fractal == 1) {
+		a->toggle = !a->toggle;
+	}
 	// 	mlx_hook(a->win, 6, 5, move_with_mouse, a);
 	return (0);
 }
@@ -205,6 +209,7 @@ void		construct(t_all *a)
 	a->str = mlx_get_data_addr(a->img, &a->bpp, &a->size_line, &a->endian);
 	if (a->str == NULL)
 		exit(0);
+	a->toggle = 0;
 }
 
 void		destruct(t_all *container)

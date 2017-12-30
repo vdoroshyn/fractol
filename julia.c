@@ -20,9 +20,9 @@ void			julia_init(t_all *a)
 	a->iterations = 300;
 	a->real = -0.7;
 	a->imaginary = 0.27015;
-	a->red = 255;
-	a->green = 211;
-	a->blue = 181;
+	a->red = 153;
+	a->green = 195;
+	a->blue = 159;
 }
 
 static void		iterations_while(t_all *a)

@@ -35,5 +35,8 @@ void			change_color(t_all *a, int keycode)
 		change_green(a);
 	else if (keycode == 14)
 		change_blue(a);
+	printf("red is %d\n", a->red);
+	printf("green is %d\n", a->green);
+	printf("blue is %d\n", a->blue);
 	redraw_one_fractal(a);
 }
