@@ -29,7 +29,7 @@ typedef struct		s_all
 	int				win_y;
 	int				which_fractal;
 	int				toggle;
-	
+
 	int				continuous_index;
 	int				red;
 	int				green;
@@ -70,5 +70,6 @@ void				change_color(t_all *a, int keycode);
 void				reset(t_all *a);
 void				zoom(t_all *a, int keycode);
 int					move_with_mouse(int x, int y, t_all *a);
-int 				zoom_with_mouse(int key, int x, int y, t_all *a);
+int					zoom_with_mouse(int key, int x, int y, t_all *a);
+
 #endif
