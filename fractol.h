@@ -51,6 +51,8 @@ typedef struct		s_all
 
 void				construct(t_all *container);
 void				destruct(t_all *container);
+void				proper_exit(t_all *a);
+int					mouse_exit(void);
 
 void				julia_init(t_all *container);
 void				julia(t_all *container);
@@ -59,10 +61,14 @@ void				mandelbrot(t_all *container);
 void				burning_ship_init(t_all *container);
 void				burning_ship(t_all *container);
 
-void				draw_fractal(int x, int y, t_all *container);
+void				draw_one_pixel(int x, int y, t_all *container);
 void				redraw_one_fractal(t_all *container);
 
 int					my_key_func1(int keycode, t_all *container);
 void				move(t_all *container, int keycode);
 void				change_color(t_all *a, int keycode);
+void				reset(t_all *a);
+void				zoom(t_all *a, int keycode);
+int					move_with_mouse(int x, int y, t_all *a);
+int 				zoom_with_mouse(int key, int x, int y, t_all *a);
 #endif

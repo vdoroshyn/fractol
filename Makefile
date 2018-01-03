@@ -23,6 +23,9 @@ OBJECTS = fractol.o \
 			burning_ship.o \
 			move.o \
 			change_color.o \
+			construct_destruct.o \
+			mlx_hook.o \
+			draw.o \
 
 .PHONY : clean all fclean re
 
@@ -61,3 +64,12 @@ move.o : move.c $(HEADER)
 
 change_color.o : change_color.c $(HEADER)
 	$(CC) $(CFLAGS) -c change_color.c fractol.h
+
+construct_destruct.o : construct_destruct.c $(HEADER)
+	$(CC) $(CFLAGS) -c construct_destruct.c fractol.h
+
+mlx_hook.o : mlx_hook.c $(HEADER)
+	$(CC) $(CFLAGS) -c mlx_hook.c fractol.h
+
+draw.o : draw.c $(HEADER)
+	$(CC) $(CFLAGS) -c draw.c fractol.h

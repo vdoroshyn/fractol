@@ -34,9 +34,11 @@ static void		iterations_while(t_all *a)
 	{
 		a->old_real = a->new_real;
 		a->old_imaginary = a->new_imaginary;
-		a->new_real = a->old_real * a->old_real - a->old_imaginary * a->old_imaginary + a->real;
+		a->new_real = a->old_real * a->old_real -
+		a->old_imaginary * a->old_imaginary + a->real;
 		a->new_imaginary = 2 * a->old_real * a->old_imaginary + a->imaginary;
-		if ((a->new_real * a->new_real + a->new_imaginary * a->new_imaginary) > 4)
+		if ((a->new_real * a->new_real +
+			a->new_imaginary * a->new_imaginary) > 4)
 		{
 			break ;
 		}
@@ -56,10 +58,12 @@ void			julia(t_all *a)
 		x = 0;
 		while (x < a->win_x)
 		{
-			a->new_real = 1.5 * (x - a->win_x / 2) / (0.5 * a->zoom * a->win_x) + a->move_x_axis;
-			a->new_imaginary = (y - a->win_y / 2) / (0.5 * a->zoom * a->win_y) + a->move_y_axis;
+			a->new_real = 1.5 * (x - a->win_x / 2) /
+			(0.5 * a->zoom * a->win_x) + a->move_x_axis;
+			a->new_imaginary = (y - a->win_y / 2) /
+			(0.5 * a->zoom * a->win_y) + a->move_y_axis;
 			iterations_while(a);
-			draw_fractal(x, y, a);
+			draw_one_pixel(x, y, a);
 			++x;
 		}
 		++y;
