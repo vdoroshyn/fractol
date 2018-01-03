@@ -40,27 +40,27 @@ void			construct(t_all *a)
 	a->toggle = 0;
 }
 
-void			destruct(t_all *container)
+void			destruct(t_all *a)
 {
-	if (container->mlx != NULL)
+	if (a->mlx != NULL)
 	{
-		free(container->mlx);
-		container->mlx = NULL;
+		free(a->mlx);
+		a->mlx = NULL;
 	}
-	if (container->win != NULL)
+	if (a->win != NULL)
 	{
-		free(container->win);
-		container->win = NULL;
+		free(a->win);
+		a->win = NULL;
 	}
-	if (container->img != NULL)
+	if (a->img != NULL)
 	{
-		free(container->img);
-		container->img = NULL;
+		free(a->img);
+		a->img = NULL;
 	}
-	if (container->str != NULL)
+	if (a->str != NULL)
 	{
-		free(container->str);
-		container->str = NULL;
+		free(a->str);
+		a->str = NULL;
 	}
 }
 

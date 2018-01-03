@@ -12,29 +12,29 @@
 
 #include "fractol.h"
 
-static int		which_fractal(char *ar, t_all *container)
+static int		which_fractal(char *ar, t_all *a)
 {
 	if (!ft_strcmp(ar, "1"))
 	{
-		container->which_fractal = 1;
+		a->which_fractal = 1;
 		return (1);
 	}
 	else if (!ft_strcmp(ar, "2"))
 	{
-		container->which_fractal = 2;
+		a->which_fractal = 2;
 		return (1);
 	}
 	else if (!ft_strcmp(ar, "3"))
 	{
-		container->which_fractal = 3;
+		a->which_fractal = 3;
 		return (1);
 	}
 	return (0);
 }
 
-static void		is_valid_arg(int num, char **ar, t_all *container)
+static void		is_valid_arg(int num, char **ar, t_all *a)
 {
-	if (num != 2 || !which_fractal(ar[1], container))
+	if (num != 2 || !which_fractal(ar[1], a))
 	{
 		write(1, "usage: ./fractol fractal_of_your_choice\n", 40);
 		write(1, "enter 1 to see Julia\n", 21);
@@ -44,37 +44,37 @@ static void		is_valid_arg(int num, char **ar, t_all *container)
 	}
 }
 
-static void		launch_fractal(t_all *container)
+static void		launch_fractal(t_all *a)
 {
-	if (container->which_fractal == 1)
+	if (a->which_fractal == 1)
 	{
-		julia_init(container);
-		julia(container);
+		julia_init(a);
+		julia(a);
 	}
-	else if (container->which_fractal == 2)
+	else if (a->which_fractal == 2)
 	{
-		mandelbrot_init(container);
-		mandelbrot(container);
+		mandelbrot_init(a);
+		mandelbrot(a);
 	}
-	else if (container->which_fractal == 3)
+	else if (a->which_fractal == 3)
 	{
-		burning_ship_init(container);
-		burning_ship(container);
+		burning_ship_init(a);
+		burning_ship(a);
 	}
 }
 
 int				main(int argc, char **argv)
 {
-	t_all		container;
+	t_all		a;
 
-	is_valid_arg(argc, argv, &container);
-	construct(&container);
-	launch_fractal(&container);
-	mlx_hook(container.win, 2, 5, my_key_func1, &container);
-	mlx_hook(container.win, 6, 5, move_with_mouse, &container);
-	mlx_hook(container.win, 17, 1L << 17, mouse_exit, &container);
-	mlx_loop(container.mlx);
-	mlx_destroy_image(container.mlx, container.win);
-	mlx_destroy_window(container.mlx, container.win);
+	is_valid_arg(argc, argv, &a);
+	construct(&a);
+	launch_fractal(&a);
+	mlx_hook(a.win, 2, 5, my_key_func1, &a);
+	mlx_hook(a.win, 6, 5, move_with_mouse, &a);
+	mlx_hook(a.win, 17, 1L << 17, mouse_exit, &a);
+	mlx_loop(a.mlx);
+	mlx_destroy_image(a.mlx, a.win);
+	mlx_destroy_window(a.mlx, a.win);
 	return (0);
 }
