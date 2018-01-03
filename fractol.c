@@ -94,63 +94,44 @@ void		redraw_one_fractal(t_all *a)
 	}
 }
 
-// int 	zoom_with_mouse(int key, int x, int y, t_all *a)
-// {
-// // 	if (key == 5)
-// //  {
-// //   fract->zoom /= 1.1;
-// //   fract->move_x += -((fract->h / 2 - fract->x) / 1000) / fract->zoom;
-// //   fract->move_y += -((fract->w / 2 - fract->y) / 1000) / fract->zoom;
-// //  }
-// // if (key == 4)
-// //  {
-// //   fract->zoom *= 1.1;
-// //   fract->move_x += -((fract->h / 2 - fract->x) / 1000) / fract->zoom;
-// //   fract->move_y += -((fract->w / 2 - fract->y) / 1000) / fract->zoom;
-// //  }
-// }
-
-// int			move_with_mouse(int x, int y, t_all *a)
-// {
-// 	 // cRe = -0.7;
-//   // cIm = 0.27015;
-// 	// if (nazhat probel?)
-// 	if (x >= a.win_x / 2 && x < a.win_x)
-// 	{
-// 		// a->c_im += ((x - a->w / 2) * 0.00002);
-//   //  a->c_re += ((x - a->w / 2) * 0.00002);
-// 	}
-// 	if (x < a.win_x / 2 && x > 0)
-// 	{
-// 				// a->c_im -= ((x - a->w / 2) * 0.00002);
-//   //  a->c_re -= ((x - a->w / 2) * 0.00002);
-// 	}
-// 	//prisvoit v struct x && y
-// 	mlx_mouse_hook(a->win, zoom_with_mouse, a);
-// 	// julia_otrisovka
-// }
+int 	zoom_with_mouse(int key, int x, int y, t_all *a)
+{
+	x = y;
+	if (key == 4)
+	{
+		a->zoom /= 1.1;
+		a->move_x_axis += -((a->win_x / 2 - a->auxilary_x)) / 1000 /a->zoom;
+		a->move_y_axis += -((a->win_y / 2 - a->auxilary_y) ) / 1000 / a->zoom;
+	}
+	if (key == 5)
+	{
+		a->zoom *= 1.1;
+		a->move_x_axis += -((a->win_y / 2 - a->auxilary_x) / 1000) / a->zoom;
+		a->move_y_axis += -((a->win_x / 2 - a->auxilary_y) / 1000) / a->zoom;
+	}
+	redraw_one_fractal(a);
+	return (0);
+}
 
 int			move_with_mouse(int x, int y, t_all *a)
 {
-	if (a->toggle == 1) {
-	if (x >= a->win_x / 2 && x < a->win_x)
+	if (a->toggle == 1)
 	{
-		a->imaginary += ((x - a->win_x / 2) * 0.00002);
-   		a->real += ((x - a->win_x / 2) * 0.00002);
+		if (x >= a->win_x / 2 && x < a->win_x)
+		{
+			a->imaginary += ((x - a->win_x / 2) * 0.00002);
+	   		a->real += ((x - a->win_x / 2) * 0.00002);
+		}
+		if (x < a->win_x / 2 && x > 0)
+		{
+			a->imaginary -= ((a->win_x / 2 - x) * 0.00002);
+			a->real -= ((a->win_x / 2 - x) * 0.00002);
+		}
+		redraw_one_fractal(a);
 	}
-	if (x < a->win_x / 2 && x > 0)
-	{
-		a->imaginary -= ((x - a->win_x / 2) * 0.00002);
-		a->real -= ((x - a->win_x / 2) * 0.00002);
-	}
-	// x -= a->win_x / 2;
-	// y -= a->win_y / 2;
-
-	// a->real = (x / a->win_x) * 0.84;
-	// a->imaginary = (y / a->win_y) * 0.84;
-	printf("x is %d y is %d\n", x, y);
-	redraw_one_fractal(a);
-}
+	a->auxilary_x = x;
+	a->auxilary_y = y;
+	mlx_mouse_hook(a->win, zoom_with_mouse, a);
 	return (0);
 }
 
@@ -167,6 +148,22 @@ void			zoom(t_all *a, int keycode)
 	redraw_one_fractal(a);
 }
 
+int mouse_exit(void)
+{
+	exit(1);
+}
+
+void			reset(t_all *a)
+{
+	if (a->which_fractal == 1)
+		julia_init(a);
+	else if (a->which_fractal == 2)
+		mandelbrot_init(a);
+	else if (a->which_fractal == 3)
+		burning_ship_init(a);
+	redraw_one_fractal(a);
+}
+
 int				my_key_func1(int keycode, t_all *a)
 {
 	if (keycode == 53)
@@ -177,10 +174,10 @@ int				my_key_func1(int keycode, t_all *a)
 		change_color(a, keycode);
 	else if (keycode == 69 || keycode == 78)
 		zoom(a, keycode);
-	else if (keycode == 49 && a->which_fractal == 1) {
+	else if (keycode == 15)
+		reset(a);
+	else if (keycode == 49 && a->which_fractal == 1)
 		a->toggle = !a->toggle;
-	}
-	// 	mlx_hook(a->win, 6, 5, move_with_mouse, a);
 	return (0);
 }
 
@@ -245,6 +242,7 @@ int				main(int argc, char **argv)
 	launch_fractal(&container);
 	mlx_hook(container.win, 2, 5, my_key_func1, &container);
 	mlx_hook(container.win, 6, 5, move_with_mouse, &container);
+	mlx_hook(container.win, 17, 1L << 17, mouse_exit, &container);
     mlx_loop(container.mlx);
 	return (0);
 }

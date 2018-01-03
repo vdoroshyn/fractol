@@ -44,6 +44,9 @@ typedef struct		s_all
 	double			move_x_axis;
 	double			move_y_axis;
 	int				iterations;
+
+	float			auxilary_x;
+	float			auxilary_y;
 }					t_all;
 
 void				construct(t_all *container);
