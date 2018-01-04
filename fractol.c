@@ -72,9 +72,7 @@ int				main(int argc, char **argv)
 	launch_fractal(&a);
 	mlx_hook(a.win, 2, 5, my_key_func1, &a);
 	mlx_hook(a.win, 6, 5, move_with_mouse, &a);
-	mlx_hook(a.win, 17, 1L << 17, mouse_exit, &a);
+	mlx_hook(a.win, 17, 1L << 17, proper_exit, &a);
 	mlx_loop(a.mlx);
-	mlx_destroy_image(a.mlx, a.win);
-	mlx_destroy_window(a.mlx, a.win);
 	return (0);
 }

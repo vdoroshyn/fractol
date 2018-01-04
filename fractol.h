@@ -51,8 +51,7 @@ typedef struct		s_all
 
 void				construct(t_all *a);
 void				destruct(t_all *a);
-void				proper_exit(t_all *a);
-int					mouse_exit(void);
+int					proper_exit(t_all *a);
 
 void				julia_init(t_all *a);
 void				julia(t_all *a);
