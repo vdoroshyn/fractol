@@ -43,6 +43,5 @@ void	image_to_window_and_destroy(t_all *a)
 int		proper_exit(t_all *a)
 {
 	destruct(a);
-	system("leaks fractol");
 	exit(0);
 }
