@@ -50,6 +50,7 @@ void			mandelbrot(t_all *a)
 	int			y;
 	int			x;
 
+	create_new_image(a);
 	y = 0;
 	while (y < a->win_y)
 	{
@@ -70,5 +71,5 @@ void			mandelbrot(t_all *a)
 		}
 		++y;
 	}
-	mlx_put_image_to_window(a->mlx, a->win, a->img, 0, 0);
+	image_to_window_and_destroy(a);
 }

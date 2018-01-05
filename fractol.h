@@ -51,6 +51,8 @@ typedef struct		s_all
 
 void				construct(t_all *a);
 void				destruct(t_all *a);
+void				create_new_image(t_all *a);
+void				image_to_window_and_destroy(t_all *a);
 int					proper_exit(t_all *a);
 
 void				julia_init(t_all *a);
