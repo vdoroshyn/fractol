@@ -26,6 +26,7 @@ OBJECTS = fractol.o \
 			construct_destruct.o \
 			mlx_hook.o \
 			draw.o \
+			change_iterations.o \
 
 .PHONY : clean all fclean re
 
@@ -73,3 +74,6 @@ mlx_hook.o : mlx_hook.c $(HEADER)
 
 draw.o : draw.c $(HEADER)
 	$(CC) $(CFLAGS) -c draw.c fractol.h
+
+change_iterations.o : change_iterations.c $(HEADER)
+	$(CC) $(CFLAGS) -c change_iterations.c fractol.h

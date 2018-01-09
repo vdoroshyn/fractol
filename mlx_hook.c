@@ -86,6 +86,8 @@ int		my_key_func1(int keycode, t_all *a)
 		move(a, keycode);
 	else if (keycode == 12 || keycode == 13 || keycode == 14)
 		change_color(a, keycode);
+	else if (keycode == 34 || keycode == 31)
+		change_iterations(a, keycode);
 	else if (keycode == 69 || keycode == 78)
 		zoom(a, keycode);
 	else if (keycode == 15)

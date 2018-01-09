@@ -68,6 +68,7 @@ void				redraw_one_fractal(t_all *a);
 int					my_key_func1(int keycode, t_all *a);
 void				move(t_all *a, int keycode);
 void				change_color(t_all *a, int keycode);
+void				change_iterations(t_all *a, int keycode);
 void				reset(t_all *a);
 void				zoom(t_all *a, int keycode);
 int					move_with_mouse(int x, int y, t_all *a);
